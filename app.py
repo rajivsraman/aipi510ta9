@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 import pandas as pd
 import random
+import requests
 
 app = Flask(__name__)
 
@@ -56,10 +57,20 @@ def math_problems():
 
     return render_template("mathproblems.html", problems=problems, feedback=None, enumerate=enumerate)
 
+API_KEY = "AIzaSyCVYcQDvQSTTJZLsXJscbRSa5WUG5aCpY4"
+PLAYLIST_ID = "PL3Oc1oiGnlKRZZKKWifYjNzrGJkox6_Ia"
+
+def get_video_ids():
+    url = f"https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&playlistId={PLAYLIST_ID}&maxResults=50&key={API_KEY}"
+    response = requests.get(url)
+    data = response.json()
+    return [item['contentDetails']['videoId'] for item in data.get('items', [])]
 
 @app.route("/geometrydash")
 def geometry_dash():
-    return render_template("geometrydash.html")
+    video_ids = get_video_ids()
+    random_video = random.choice(video_ids) if video_ids else None
+    return render_template("geometrydash.html", video_id=random_video)
 
 if __name__ == "__main__":
     app.run(debug=True)
