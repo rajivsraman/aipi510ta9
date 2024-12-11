@@ -44,9 +44,9 @@ def math_problems():
     # Generate new random problems
     problems = []
     levels = {
-        1: data[(data["Problem Number"] >= 1) & (data["Problem Number"] <= 3)],
-        2: data[(data["Problem Number"] >= 4) & (data["Problem Number"] <= 10)],
-        3: data[(data["Problem Number"] >= 11) & (data["Problem Number"] <= 15)],
+        1: data[(data["Problem Number"] >= 1) & (data["Problem Number"] <= 3)], # criteria for Level 1 problems
+        2: data[(data["Problem Number"] >= 4) & (data["Problem Number"] <= 10)], # criteria for Level 2 problems
+        3: data[(data["Problem Number"] >= 11) & (data["Problem Number"] <= 15)], # criteria for Level 3 problems
     }
 
     for level, df in levels.items():
