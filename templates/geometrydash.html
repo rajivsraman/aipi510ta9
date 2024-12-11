@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geometry Dash Videos</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">AIPI 510 TA 9</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/mathproblems">Math Problems</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/geometrydash">Geometry Dash</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mt-5 text-center">
+        <h1 class="display-4 text-primary">Recorded Geometry Dash Achievements</h1>
+        <p class="lead">One of my favorite ways to take a break is to play Geometry Dash - a mobile rhythm-based game where you tap/hold the screen to get through an obstacle course without crashing. Because I have kept up this hobby for many years, I have beaten a lot of levels of the highest difficulty (Demon) in the game. In fact, even within the Demon difficulty, there are meaningful subdivisions for difficulty (Easy, Medium, Hard, Insane, and Extreme). This page will randomly select a Geometry Dash level that I have beaten and recorded.</p>
+
+        <!-- Video Embed -->
+        {% if video_id %}
+        <div class="ratio ratio-16x9">
+            <iframe src="https://www.youtube.com/embed/{{ video_id }}" frameborder="0" allowfullscreen></iframe>
+        </div>
+        {% else %}
+        <p class="text-danger">No video available. Please try again later.</p>
+        {% endif %}
+
+        <!-- Refresh Button -->
+        <form method="GET" action="/geometrydash">
+            <button type="submit" class="btn btn-primary mt-3">Load Another Video</button>
+        </form>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+        <p>&copy; My Flask Website. All rights reserved.</p>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
