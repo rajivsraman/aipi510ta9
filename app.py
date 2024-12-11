@@ -64,7 +64,7 @@ PLAYLIST_ID = "PL3Oc1oiGnlKRZZKKWifYjNzrGJkox6_Ia"
 
 def get_video_ids():
     '''Pulls the list of video IDs from the playlist ID specified above.'''
-    url = f"https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&playlistId={PLAYLIST_ID}&maxResults=50&key={API_KEY}"
+    url = f"https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&playlistId={PLAYLIST_ID}&maxResults=500&key={API_KEY}"
     response = requests.get(url)
     data = response.json()
     return [item['contentDetails']['videoId'] for item in data.get('items', [])]
