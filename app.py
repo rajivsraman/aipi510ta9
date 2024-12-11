@@ -11,10 +11,12 @@ data = pd.read_csv(DATA_FILE)
 
 @app.route("/")
 def home():
+    '''Generates the home page of the website.'''
     return render_template("index.html")
 
 @app.route("/mathproblems", methods=["GET", "POST"])
 def math_problems():
+    '''Selects three random AIME problems of varying difficulty.'''
     if request.method == "POST":
         # Reconstruct problems from the form data
         problems = []
@@ -42,9 +44,9 @@ def math_problems():
     # Generate new random problems
     problems = []
     levels = {
-        1: data[(data["Problem Number"] >= 1) & (data["Problem Number"] <= 3)],
-        2: data[(data["Problem Number"] >= 4) & (data["Problem Number"] <= 10)],
-        3: data[(data["Problem Number"] >= 11) & (data["Problem Number"] <= 15)],
+        1: data[(data["Problem Number"] >= 1) & (data["Problem Number"] <= 3)], # criteria for Level 1 problems
+        2: data[(data["Problem Number"] >= 4) & (data["Problem Number"] <= 10)], # criteria for Level 2 problems
+        3: data[(data["Problem Number"] >= 11) & (data["Problem Number"] <= 15)], # criteria for Level 3 problems
     }
 
     for level, df in levels.items():
@@ -61,6 +63,7 @@ API_KEY = "AIzaSyCVYcQDvQSTTJZLsXJscbRSa5WUG5aCpY4"
 PLAYLIST_ID = "PL3Oc1oiGnlKRZZKKWifYjNzrGJkox6_Ia"
 
 def get_video_ids():
+    '''Pulls the list of video IDs from the playlist ID specified above.'''
     url = f"https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&playlistId={PLAYLIST_ID}&maxResults=50&key={API_KEY}"
     response = requests.get(url)
     data = response.json()
@@ -68,6 +71,7 @@ def get_video_ids():
 
 @app.route("/geometrydash")
 def geometry_dash():
+    '''Renders a randomly selected video from the specified playlist in HTML for site display.'''
     video_ids = get_video_ids()
     random_video = random.choice(video_ids) if video_ids else None
     return render_template("geometrydash.html", video_id=random_video)
